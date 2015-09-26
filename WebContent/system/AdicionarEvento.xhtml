@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+ <html xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:f="http://xmlns.jcp.org/jsf/core"
+       xmlns:p="http://primefaces.org/ui" >
+       
+       	<link rel="stylesheet" href="../resources/css/bootstrap.min.css" />
+        <style>
+            body {
+                padding: 50px 50px 50px 40px;
+            }
+        </style>
+        <link rel="stylesheet" href="../resources/css/bootstrap-responsive.min.css" />
+<h:head>
+	<title>Cadastrar Evento</title>
+</h:head>
+
+<h:body>
+
+	<!-- cabeçalho -->
+	<header class="hero-unit">  		
+		<div class="row">
+			<h:form> 
+				<div class="controls controls-row">
+					<div class="span10"></div>
+					<h:commandLink action="#{indexMB.manutencao}" value="Manutenção" rendered="#{pessoaMB.pessoaLogada.situacao==2}"/>
+					<h:outputText value=" "/>
+					<h:commandLink action="#{indexMB.cadastro}" value="Cadastre-se" rendered="#{pessoaMB.pessoaLogada.situacao==null}"/>
+					<h:outputText value=" "/>
+					<h:commandLink action="#{indexMB.login}" value="Logar" rendered="#{pessoaMB.pessoaLogada.situacao==null}" />
+					<h:outputText value=" "/>
+					<h:commandLink actionr="#{pessoaMB.logout}" value="Logout" rendered="#{pessoaMB.pessoaLogada.situacao>0}" />
+				</div>
+            </h:form>           
+		    <div class="span4"><h2>Cadastrar Evento</h2></div>
+		</div>
+	</header>
+		
+		
+	<!-- Principal -->
+	<div class="container-fluid">
+		<div class="row-fluid">		
+			<div class="span2"></div> 
+			<div class="span8">
+				<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+				<div class="hero-unit">
+					<h:form class="form-horizontal">
+						<fieldset>
+							<div class="control-group">
+								<h:outputText value="Instituição" class="control-label" immediate="true"/> 
+								<div class="controls">
+									<h:selectOneMenu value="#{eventoMB.inst}" required="true" converter="instituicaoConverter"> 
+										<f:selectItems value="#{instituicaoMB.lista}" var="instituicao" 
+									                   itemValue="#{instituicao}" itemLabel="#{instituicao.nome}" />
+									</h:selectOneMenu>
+								</div>	
+							</div>	
+							<div class="control-group">
+								<h:outputText id="nomeEvento" value="Nome" class="control-label"/> 
+								<div class="controls">
+									<h:inputText class="input-xlarge" value="#{eventoMB.evento.nome}"/>
+								</div>	
+								<p:message id="idErrorName" for="nomeEvento" display="text"/>
+							</div>
+							<div class="control-group">
+								<h:outputText id="areaEvento" value="Área" class="control-label"/> 
+								<div class="controls">
+									<h:inputText class="input-xlarge" value="#{eventoMB.evento.area}" />
+								</div>
+								<p:message id="idErrorArea" for="areaEvento" />
+							</div>
+							<div class="control-group">
+								<h:outputText id="temaEvento" value="Tema" class="control-label"/> 
+								<div class="controls">
+									<h:inputText class="input-xlarge" value="#{eventoMB.evento.tema}" />
+								</div>	
+								<p:message id="idErrorTema" for="temaEvento" />
+							</div>
+							<div class="control-group">
+								<h:outputText id="inicioEvento" value="Início" class="control-label"/> 
+								<div class="controls">
+									<p:inputMask mask="99/99/9999" value="#{eventoMB.evento.dataInicio}" />
+								</div>
+								<p:message id="idErrorInicio" for="inicioEvento" />	
+							</div>
+							<div class="control-group">
+								<h:outputText id="fimEvento" value="Fim" class="control-label"/> 
+								<div class="controls">
+									<p:inputMask mask="99/99/9999" value="#{eventoMB.evento.dataFim}" />
+								</div>	
+								<p:message id="idErrorFim" for="fimEvento" />
+							</div>
+							<div class="control-group">
+								<h:outputText id="paisEvento" value="País" class="control-label"/> 
+								<div class="controls">
+									<h:inputText class="input-xlarge" value="#{eventoMB.evento.pais}" />
+								</div>	
+								<p:message id="idErrorPais" for="paisEvento" />
+							</div>
+							<div class="control-group">
+								<h:outputText value="Estado" class="control-label"/> 
+								<div class="controls">			
+									<h:selectOneMenu value="#{eventoMB.evento.estado}" >  
+								   		<f:selectItem itemValue="SP" itemLabel="São Paulo"/>  
+								   		<f:selectItem itemValue="AC" itemLabel="Acre"/>  
+								   		<f:selectItem itemValue="AL" itemLabel="Alagoas"/>  
+								   		<f:selectItem itemValue="AP" itemLabel="Amapá"/>  
+								   		<f:selectItem itemValue="AM" itemLabel="Amazonas"/>  
+								   		<f:selectItem itemValue="BA" itemLabel="Bahia"/>  
+								   		<f:selectItem itemValue="CE" itemLabel="Ceará"/>  
+								   		<f:selectItem itemValue="DF" itemLabel="Distrito Federal"/>  
+								   		<f:selectItem itemValue="ES" itemLabel="Espírito Santo"/>  
+								   		<f:selectItem itemValue="GO" itemLabel="Goiás"/>  
+								   		<f:selectItem itemValue="MA" itemLabel="Maranhão"/>  
+								   		<f:selectItem itemValue="MT" itemLabel="Mato Grosso"/>  
+								   		<f:selectItem itemValue="MS" itemLabel="Mato Grosso do Sul"/>  
+								   		<f:selectItem itemValue="MG" itemLabel="Minas Gerais"/>  
+								   		<f:selectItem itemValue="PR" itemLabel="Paraná"/>  
+								   		<f:selectItem itemValue="PB" itemLabel="Paraíba"/>  
+								   		<f:selectItem itemValue="PA" itemLabel="Pará"/>  
+								   		<f:selectItem itemValue="PE" itemLabel="Pernambuco"/>  
+								   		<f:selectItem itemValue="PI" itemLabel="Piauí"/>  
+								   		<f:selectItem itemValue="RJ" itemLabel="Rio de Janeiro"/>  
+								   		<f:selectItem itemValue="RN" itemLabel="Rio Grande do Norte"/>  
+								   		<f:selectItem itemValue="RS" itemLabel="Rio Grande do Sul"/>  
+								   		<f:selectItem itemValue="RO" itemLabel="Rondonia"/>  
+								   		<f:selectItem itemValue="RR" itemLabel="Roraima"/>  
+								   		<f:selectItem itemValue="SC" itemLabel="Santa Catarina"/>  
+								   		<f:selectItem itemValue="SE" itemLabel="Sergipe"/>  
+								   		<f:selectItem itemValue="TO" itemLabel="Tocantins"/>  
+								   	</h:selectOneMenu>
+								</div>	
+							</div>
+							<div class="control-group">
+								<h:outputText id="cidadeEvento" value="Cidade" class="control-label"/> 
+								<div class="controls">
+									<h:inputText class="input-xlarge" value="#{eventoMB.evento.cidade}" />
+								</div>	
+								<p:message id="idErrorCidade" for="cidadeEvento" />
+							</div>
+							<div class="control-group">
+								<h:outputText id="categoriaEvento" value="Categoria" class="control-label"/> 
+								<div class="controls">
+									<h:inputText class="input-xlarge" value="#{eventoMB.evento.categoria}" />
+								</div>	
+								<p:message id="idErrorCategoria" for="categoriaEvento" />
+							</div>
+							<div class="control-group">
+								<h:outputText value="Início das Inscrições" class="control-label"/>
+								<div class="controls"> 
+									<p:inputMask mask="99/99/9999" value="#{eventoMB.evento.dataInicioInscricao}"/>
+								</div>	
+							</div>
+							<div class="control-group">
+								<h:outputText value="Fim das Inscrições" class="control-label"/> 
+								<div class="controls">
+									<p:inputMask mask="99/99/9999" value="#{eventoMB.evento.dataFimInscricao}"/>
+								</div>	
+							</div>
+							<div class="control-group">
+								<h:outputText id="linkEvento" value="Link" class="control-label"/> 
+								<div class="controls">
+									<h:inputText class="input-xlarge" type="url" value="#{eventoMB.evento.link}" />
+								</div>	
+								<p:message id="idErrorLink" for="linkEvento" />
+							</div>
+							<div class="control-group">
+								<h:outputText id="descricaoEvento" value="Descrição" class="control-label"/>
+								<div class="controls"> 
+									<h:inputTextarea class="input-xlarge" value="#{eventoMB.evento.descricao}" />
+								</div>	
+								<p:message id="idErrorDescricao" for="descricaoEvento" />
+							</div>
+							<div class="control-group">
+								<h:outputText id="valorEvento" value="Valor" class="control-label"/> 
+								<div class="controls">
+									<h:inputText class="input-xlarge" value="#{eventoMB.evento.valor}" />
+								</div>	
+								<p:message id="idErrorValor" for="valorEvento" />
+							</div>
+							<div class="control-group">
+								<label class="control-label"></label>
+								<div class="controls">
+									<h:commandButton class="btn btn-primary btn-lg" value="Salvar"  
+													 action="#{eventoMB.adicionaEvento}" />
+									<h:commandButton class="btn  btn-lg" value="Cancelar"  
+													 action="#{indexMB.cancelar}" />
+								</div>	
+							</div>
+						</fieldset>
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- rodapé -->
+	<footer class="hero-unit">
+		<div class="well" align="center">
+			Desenvolvido por Alexandre Manoel da Silva
+		</div>
+	</footer>
+</h:body>
+</html>

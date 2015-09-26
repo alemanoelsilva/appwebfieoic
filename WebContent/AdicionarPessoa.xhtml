@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+ <html xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:f="http://xmlns.jcp.org/jsf/core"
+       xmlns:p="http://primefaces.org/ui" >
+       
+       	<link rel="stylesheet" href="resources/css/bootstrap.min.css" />
+        <style>
+            body {
+                padding: 50px 50px 50px 40px;
+            }
+        </style>
+        <link rel="stylesheet" href="resources/css/bootstrap-responsive.min.css" />
+<h:head>
+	<title>Cadastrar</title>
+</h:head>
+<h:body>
+
+	<!-- cabeçalho -->
+	<header class="hero-unit">  		
+		<div class="row">         
+		    <div class="span4"><h2>Cadastre-se</h2></div>
+		</div>
+	</header>
+
+	<!-- Principal -->
+	<div class="container-fluid">
+		<div class="row-fluid">		
+			<div class="span2"></div> 
+			<div class="span8">
+				<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+				<div class="hero-unit">
+					<h:form class="form-horizontal">
+						<fieldset>
+								<div class="control-group">
+									<h:outputText id="nomePessoa" value="Nome" class="control-label"/> 
+									<div class="controls">
+										<h:inputText class="input-xlarge" value="#{pessoaMB.pessoa.nome}"/>
+									</div>	
+									<p:message id="idErrorName" for="nomePessoa" display="text"/>
+								</div>
+								<div class="control-group">
+									<h:outputText id="cpfPessoa" value="CPF" class="control-label"/> 
+									<div class="controls">
+										<p:inputMask mask="999.999.999-99" styleClass="input-xlarge" 
+										             value="#{pessoaMB.pessoa.cpf}" />
+									</div>	
+									<p:message id="idErrorCpf" for="cpfPessoa" display="text"/>
+								</div>
+								<div class="control-group">
+									<h:outputText id="titularPessoa" value="Titulação" class="control-label"/> 
+									<div class="controls">
+										<h:inputText class="input-xlarge" value="#{pessoaMB.pessoa.titulo}"/>
+									</div>	
+									<p:message id="idErrortitulo" for="titularPessoa" display="text"/>
+								</div>
+								<div class="control-group">
+									<h:outputText id="emailPessoa" value="E-mail" class="control-label"/> 
+									<div class="controls">
+										<h:inputText class="input-xlarge" value="#{pessoaMB.pessoa.email}"/>
+									</div>	
+									<p:message id="idErrorEmail" for="emailPessoa" display="text"/>
+								</div>
+								<div class="control-group">
+									<h:outputText id="senhaPessoa" value="Senha" class="control-label"/> 
+									<div class="controls">
+										<p:password styleClass="input-xlarge" value="#{pessoaMB.pessoa.senha}"/>
+									</div>	
+									<p:message id="idErrorSenha" for="senhaPessoa" display="text"/>
+								</div>
+								<div class="control-group">
+									<h:outputText id="paisPessoa" value="Pais" class="control-label"/> 
+									<div class="controls">
+										<h:inputText class="input-xlarge" value="#{pessoaMB.pessoa.pais}"/>
+									</div>	
+									<p:message id="idErrorPais" for="paisPessoa" display="text"/>
+								</div>
+								<div class="control-group">
+									<h:outputText value="Estado" class="control-label"/> 
+									<div class="controls">			
+										<h:selectOneMenu value="#{pessoaMB.pessoa.estado}" >  
+									   		<f:selectItem itemValue="SP" itemLabel="São Paulo"/>  
+									   		<f:selectItem itemValue="AC" itemLabel="Acre"/>  
+									   		<f:selectItem itemValue="AL" itemLabel="Alagoas"/>  
+									   		<f:selectItem itemValue="AP" itemLabel="Amapá"/>  
+									   		<f:selectItem itemValue="AM" itemLabel="Amazonas"/>  
+									   		<f:selectItem itemValue="BA" itemLabel="Bahia"/>  
+									   		<f:selectItem itemValue="CE" itemLabel="Ceará"/>  
+									   		<f:selectItem itemValue="DF" itemLabel="Distrito Federal"/>  
+									   		<f:selectItem itemValue="ES" itemLabel="Espírito Santo"/>  
+									   		<f:selectItem itemValue="GO" itemLabel="Goiás"/>  
+									   		<f:selectItem itemValue="MA" itemLabel="Maranhão"/>  
+									   		<f:selectItem itemValue="MT" itemLabel="Mato Grosso"/>  
+									   		<f:selectItem itemValue="MS" itemLabel="Mato Grosso do Sul"/>  
+									   		<f:selectItem itemValue="MG" itemLabel="Minas Gerais"/>  
+									   		<f:selectItem itemValue="PR" itemLabel="Paraná"/>  
+									   		<f:selectItem itemValue="PB" itemLabel="Paraíba"/>  
+									   		<f:selectItem itemValue="PA" itemLabel="Pará"/>  
+									   		<f:selectItem itemValue="PE" itemLabel="Pernambuco"/>  
+									   		<f:selectItem itemValue="PI" itemLabel="Piauí"/>  
+									   		<f:selectItem itemValue="RJ" itemLabel="Rio de Janeiro"/>  
+									   		<f:selectItem itemValue="RN" itemLabel="Rio Grande do Norte"/>  
+									   		<f:selectItem itemValue="RS" itemLabel="Rio Grande do Sul"/>  
+									   		<f:selectItem itemValue="RO" itemLabel="Rondonia"/>  
+									   		<f:selectItem itemValue="RR" itemLabel="Roraima"/>  
+									   		<f:selectItem itemValue="SC" itemLabel="Santa Catarina"/>  
+									   		<f:selectItem itemValue="SE" itemLabel="Sergipe"/>  
+									   		<f:selectItem itemValue="TO" itemLabel="Tocantins"/>  
+									   	</h:selectOneMenu>
+									</div>	
+								</div>
+								<div class="control-group">
+									<h:outputText id="cidadePessoa" value="Cidade" class="control-label"/> 
+									<div class="controls">
+										<h:inputText class="input-xlarge" value="#{pessoaMB.pessoa.cidade}"/>
+									</div>	
+									<p:message id="idErrorCidade" for="cidadePessoa" display="text"/>
+								</div>
+								<div class="control-group">
+									<label class="control-label"></label>
+									<div class="controls">
+										<h:commandButton class="btn btn-primary btn-lg" value="Salvar"  
+														 action="#{pessoaMB.adicionaPessoa}" />
+										<h:commandButton class="btn  btn-lg" value="Cancelar"  
+													     action="#{indexMB.cancelar}" />
+									</div>	
+								</div>
+						</fieldset>
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- rodapé -->
+	<footer class="hero-unit">
+		<div class="well" align="center">
+			Desenvolvido por Alexandre Manoel da Silva
+		</div>
+	</footer>
+
+</h:body>
+</html>

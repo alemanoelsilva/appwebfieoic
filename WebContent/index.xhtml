@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+ <html xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:f="http://xmlns.jcp.org/jsf/core"
+       xmlns:p="http://primefaces.org/ui" >
+       
+ 		<link rel="stylesheet" href="resources/css/bootstrap.min.css" />
+        <style>
+            body {
+                padding: 50px 50px 50px 40px;
+            }
+        </style>
+        <link rel="stylesheet" href="resources/css/bootstrap-responsive.min.css" />
+       
+<h:head>
+	<title>Home</title>
+</h:head>
+<h:body>
+		
+	<header class="hero-unit">  		
+		<div class="row">
+			<h:form> 
+				<div class="controls controls-row">
+					<div class="span10"></div>
+					<h:commandLink action="#{indexMB.manutencao}" value="Manutenção" rendered="#{pessoaMB.pessoaLogada.situacao==2}"/>
+					<h:outputText value=" "/>
+					<h:commandLink action="#{indexMB.cadastro}" value="Cadastre-se" rendered="#{pessoaMB.pessoaLogada.situacao==null}"/>
+					<h:outputText value=" "/>
+					<h:commandLink action="#{indexMB.login}" value="Logar" rendered="#{pessoaMB.pessoaLogada.situacao==null}" />
+					<h:outputText value=" "/>
+					<h:commandLink action="#{pessoaMB.logout}" value="Logout" rendered="#{pessoaMB.pessoaLogada.situacao>0}" />
+				</div>	
+            </h:form>           
+		    <div class="span4"><h2>Virtual Academy</h2></div>
+		</div>
+	</header>
+	
+	<!-- barra de pesquisa -->
+	<nav class="container "> 
+		<h:form class="form-inline"> <div class="span3"></div>
+			<h:selectOneMenu class="span2" value="#{indexMB.tipo}" >  
+                <f:selectItem itemValue="1"     itemLabel="Evento"/>  
+                <f:selectItem itemValue="2"     itemLabel="Publicação"/>  
+            </h:selectOneMenu> 
+		   	<h:inputText value="#{indexMB.pesquisa}" class="form-control span4" />
+			<h:commandButton id="pesquisa" value=" Pesquisar " actionListener="#{indexMB.efetuarPesquisa}" 
+			                 class="btn btn-primary" update="lista"> 
+				<f:ajax execute="@form" render=":lista" /> 
+			</h:commandButton>
+
+		</h:form>
+	</nav>  
+    
+	<div class="container-fluid">
+		<div class="row-fluid">
+					
+			<!-- menu lateral -->
+			<div class="span4">    
+			    <div class="hero-unit">
+				    <h:form> 
+						<h:commandLink action="#{indexMB.isListPublicacao}" value="Publicações"> <br />
+							<f:ajax execute="@form" render=":lista" />
+						</h:commandLink> 
+						<h:commandLink action="#{indexMB.isListEvento}" value="Eventos"> <br />
+							<f:ajax execute="@form" render=":lista" />
+						</h:commandLink> 						 	
+						<h:commandLink action="#{indexMB.goAdicionarPublicacao}" value="Cadastrar Publicação" 
+						               rendered="#{pessoaMB.pessoaLogada.situacao==1 or pessoaMB.pessoaLogada.situacao==2}" /><br />
+						<h:commandLink action="#{indexMB.goAdicionarEvento}" value="Cadastrar Evento" 
+						               rendered="#{pessoaMB.pessoaLogada.situacao==1 or pessoaMB.pessoaLogada.situacao==2}" /><br />
+						<h:commandLink action="#{indexMB.goAdicionarAnais}" value="Cadastrar Anais" 
+						               rendered="#{pessoaMB.pessoaLogada.situacao==1 or pessoaMB.pessoaLogada.situacao==2}" /><br />		
+						<h:commandLink action="#{indexMB.goAdicionarInstituicao}" value="Cadastrar Instituição" 
+						               rendered="#{pessoaMB.pessoaLogada.situacao==1 or pessoaMB.pessoaLogada.situacao==2}" />			
+					</h:form> 
+				</div>
+			</div>
+			 
+			<!-- area com a lista -->
+			<div class="span8">    
+		    	<div class="hero-unit">
+				<section>
+				<h:panelGroup id="lista">
+					<h:panelGroup rendered="#{indexMB.statePublicacao==true}" >
+					<h:form>
+					<h:messages/>
+					<!-- Listar -->
+						<h:dataTable value="#{indexMB.listaPublicacao}" var="publicacao" cellpadding="6" rules="none" 
+					                                               rendered="#{!empty indexMB.listaPublicacao}">
+							<h:column >
+								<h:panelGroup> 
+								    <div class="well"> 
+										<strong>Nome: </strong> <h:outputLink value="#{publicacao.link}" >
+																	<h:outputText value="#{publicacao.nome}" />
+																</h:outputLink><br />														                                    
+										<strong>Tema: </strong> <h:outputText value="#{publicacao.tema}" /> <br />
+										<strong>Área: </strong> <h:outputText value="#{publicacao.area}" /> <br />	
+										<strong>Tipo de publicacão: </strong><h:outputText value="#{publicacao.tipo}" /> <br />
+										<strong>Resumo: </strong><h:outputText value="#{publicacao.resumo}" />
+									</div>
+								</h:panelGroup>                                         
+							</h:column>  
+						</h:dataTable>
+					</h:form>
+					</h:panelGroup>
+					<h:panelGroup rendered="#{indexMB.stateEvento==true}">
+					<h:form >
+					<h:messages/>
+						<!-- Lista r-->
+						<h:dataTable value="#{indexMB.listaEvento}" var="evento"  rules="none" cellpadding="6" 
+						                                       rendered="#{!empty indexMB.listaEvento}">	
+							<h:column>
+								<h:panelGroup> 
+								<div class="well">
+									<strong>Nome: </strong> <h:outputLink value="#{evento.link}" >
+																<h:outputText value="#{evento.nome}" />
+															</h:outputLink> <br />
+									<strong>Tema: </strong> <h:outputText value="#{evento.tema}" /> <br /> 
+									<strong>Área: </strong> <h:outputText value="#{evento.area}" /> <br /> 
+									<strong>Ínicio: </strong><h:outputText value="#{evento.dataInicio}" /> <br /> 
+									<strong>Termino: </strong><h:outputText value="#{evento.dataFim}" /> <br /> 
+									<strong>Pais: </strong><h:outputText value="#{evento.pais}" /> <br /> 
+									<strong>Estado: </strong><h:outputText value="#{evento.estado}" /> <br /> 
+									<strong>Cidade: </strong><h:outputText value="#{evento.cidade}" /> <br /> 
+									<strong>Valor: </strong><h:outputText value="#{evento.valor}" /> <br /> 
+									<strong>Descrição: </strong><h:outputText value="#{evento.descricao}" /> <br /> 
+								</div>		
+								</h:panelGroup>                                         
+							</h:column>  			                                       
+						</h:dataTable>
+					</h:form>
+					</h:panelGroup>											
+				</h:panelGroup>	
+				</section>
+				</div>
+			</div>
+			
+			<div class="span1">    </div>
+					
+		</div>				
+	</div>				
+	
+	<footer class="hero-unit">
+		<div class="well" align="center">
+			Desenvolvido por Alexandre Manoel da Silva
+		</div>
+	</footer>
+
+	
+</h:body>
+</html>

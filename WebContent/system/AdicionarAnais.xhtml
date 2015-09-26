@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+ <html xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:f="http://xmlns.jcp.org/jsf/core"
+       xmlns:p="http://primefaces.org/ui" >
+       
+       	<link rel="stylesheet" href="../resources/css/bootstrap.min.css" />
+        <style>
+            body {
+                padding: 50px 50px 50px 40px;
+            }
+        </style>
+        <link rel="stylesheet" href="../resources/css/bootstrap-responsive.min.css" />
+<h:head>
+	<title>Cadastrar Anais</title>
+</h:head>
+<h:body>
+	<!-- cabeçalho -->
+	<header class="hero-unit">  		
+		<div class="row">
+			<h:form> 
+				<div class="controls controls-row">
+					<div class="span10"></div>
+					<h:commandLink action="#{indexMB.manutencao}" value="Manutenção" rendered="#{pessoaMB.pessoaLogada.situacao==2}"/>
+					<h:outputText value=" "/>
+					<h:commandLink action="#{indexMB.cadastro}" value="Cadastre-se" rendered="#{pessoaMB.pessoaLogada.situacao==null}"/>
+					<h:outputText value=" "/>
+					<h:commandLink action="#{indexMB.login}" value="Logar" rendered="#{pessoaMB.pessoaLogada.situacao==null}" />
+					<h:outputText value=" "/>
+					<h:commandLink action="#{pessoaMB.logout}" value="Logout" rendered="#{pessoaMB.pessoaLogada.situacao>0}" />
+				</div>
+            </h:form>           
+		    <div class="span4"><h2>Cadastrar Anais</h2></div>
+		</div>
+	</header>
+
+	<!-- Principal -->
+	<div class="container-fluid">
+		<div class="row-fluid">		
+			<div class="span2"></div> 
+			<div class="span8">
+				<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+				<div class="hero-unit">
+					<h:form class="form-horizontal">
+						<fieldset>
+				 			<div class="control-group">
+								<h:outputText value="Evento" class="control-label" immediate="true"/> 
+								<div class="controls">
+								   <h:selectOneMenu    value="#{anaisMB.evento}" converter="eventoConverter"> 
+								        <f:selectItems value="#{eventoMB.listaEventoDisp}" var="evento"
+								                       itemValue="#{evento}" itemLabel="#{evento.nome}" />
+								   </h:selectOneMenu>
+								</div>	
+							</div> 
+							<div class="control-group">
+								<h:outputText id="nomeAnais" value="Nome" class="control-label"/> 
+								<div class="controls">
+									<h:inputText class="input-xlarge" value="#{anaisMB.anais.nome}"/>
+								</div>	
+								<p:message id="idErrorName" for="nomeAnais" display="text"/>
+							</div>
+							<div class="control-group">
+								<h:outputText id="areaAnais" value="Área" class="control-label"/> 
+								<div class="controls">
+									<h:inputText class="input-xlarge" value="#{anaisMB.anais.area}"/>
+								</div>	
+								<p:message id="idErrorArea" for="areaAnais" display="text"/>
+							</div>
+							<div class="control-group">
+								<h:outputText id="editoraAnais" value="Editora" class="control-label"/> 
+								<div class="controls">
+									<h:inputText class="input-xlarge" value="#{anaisMB.anais.editora}"/>
+								</div>	
+								<p:message id="idErrorEditora" for="editoraAnais" display="text"/>
+							</div>
+							<div class="control-group">
+								<label class="control-label"></label>
+								<div class="controls">
+									<h:commandButton class="btn btn-primary btn-lg" value="Salvar"  
+													 action="#{anaisMB.adicionaAnais}" />
+									<h:commandButton class="btn  btn-lg" value="Cancelar"  
+													 action="#{indexMB.cancelar}" />
+								</div>	
+							</div>                           
+						</fieldset>
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- rodapé -->
+	<footer class="hero-unit">
+		<div class="well" align="center">
+			Desenvolvido por Alexandre Manoel da Silva
+		</div>
+	</footer>
+
+</h:body>
+</html>
